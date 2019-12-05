@@ -16,7 +16,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class HispanicNames {
 
-	public static class MortgageMapper extends Mapper<Object, Text, Text, IntWritable> {
+	public static class HispanicMapper extends Mapper<Object, Text, Text, IntWritable> {
 		
 		private final static IntWritable one = new IntWritable(1);
 		private Text word = new Text();
@@ -49,7 +49,7 @@ public class HispanicNames {
 		}
 	}
 
-	public static class MortgageReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+	public static class HispanicReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
 		private IntWritable result = new IntWritable();
 		/**
 		 * The "Reducer" function. Iterates through all states to find the number of mortgages. 
