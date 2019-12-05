@@ -19,18 +19,6 @@ public class HispanicNames {
 		private final static IntWritable one = new IntWritable(1);
 		private Text word = new Text();
 	
-		/**
-		 * The "Mapper" function. It receives a line of input from the file, 
-		 * extracts "state" and "Product" from it, which becomes
-		 * the output only when the product is a mortage.
-		 * The output key is "state" and the output value is 
-		 * "1".
-		 * @param key - Input key - The line offset in the file - ignored.
-		 * @param value - Input Value - This is the line itself.
-		 * @param context - Provides access to the OutputCollector and Reporter.
-		 * @throws IOException
-		 * @throws InterruptedException 
-		 */
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 			String[] line = value.toString().split(",");
 
@@ -49,16 +37,7 @@ public class HispanicNames {
 
 	public static class HispanicReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
 		private IntWritable result = new IntWritable();
-		/**
-		 * The "Reducer" function. Iterates through all states to find the number of mortgages. 
-		 * The output key is the "state" and  
-		 * the value is the "number of mortgages" for that state.
-		 * @param key - Input key - Name of the region
-		 * @param values - Input Value - Iterator over quake magnitudes for region
-		 * @param context - Used for collecting output
-		 * @throws IOException
-		 * @throws InterruptedException 
-		 */
+		
 		@Override
 		public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
 			int sum = 0;
@@ -74,15 +53,15 @@ public class HispanicNames {
 		// Create the job specification object
 		Configuration conf = new Configuration();
 		Job job = Job.getInstance(conf, "Hispanic count");
-		job.setJarByClass(Mortgage.class);
+		job.setJarByClass(HispanicNames.class);
 
 		// Setup input and output paths
 		FileInputFormat.addInputPath(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
 		// Set the Mapper and Reducer classes
-		job.setMapperClass(MortgageMapper.class);
-		job.setReducerClass(MortgageReducer.class);
+		job.setMapperClass(HispanicMapper.class);
+		job.setReducerClass(HispanicReducer.class);
 
 		// Specify the type of output keys and values
 		job.setOutputKeyClass(Text.class);
