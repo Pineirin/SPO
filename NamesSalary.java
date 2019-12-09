@@ -13,7 +13,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 
-public class WhiteHateCrimes {
+public class HateCrimes {
 
 	public static class Mapper1 extends Mapper<Object, Text, Text, IntWritable> {
 		
@@ -27,8 +27,13 @@ public class WhiteHateCrimes {
 			String year = line[1];
 			word.set(year);
 			
-			String numberWhite = line[8];
-			if(numberWhite > 0){
+			String white = line[8];
+			int whiteNumber = 0
+			try {
+                		whiteNumber = Integer.valueOf(white);
+        		} catch(NumberFormatException e) {
+        		}
+			if(whiteNumber > 0){
 				// Record the output in the Context object
 				context.write(word, one);
 			}
