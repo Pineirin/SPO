@@ -28,7 +28,7 @@ public class HateCrimes {
 			word.set(year);
 			
 			String white = line[8];
-			int whiteNumber = 0
+			int whiteNumber = 0;
 			try {
                 		whiteNumber = Integer.valueOf(white);
         		} catch(NumberFormatException e) {
@@ -59,7 +59,7 @@ public class HateCrimes {
 		}
 	}
 
-	public static class NamesReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+	public static class Reducer extends Reducer<Text, IntWritable, Text, IntWritable> {
 		private IntWritable result = new IntWritable();
 		
 		@Override
@@ -77,14 +77,14 @@ public class HateCrimes {
 		// Create the job specification object
 		Configuration conf = new Configuration();
 		Job job = Job.getInstance(conf, "Ethnic variaty");
-		job.setJarByClass(NamesSalary.class);
+		job.setJarByClass(HateCrimes.class);
 
 		// Setup input and output paths
 		MultipleInputs.addInputPath(job,new Path(args[0]), TextInputFormat.class, Mapper1.class);
 		MultipleInputs.addInputPath(job,new Path(args[1]), TextInputFormat.class, Mapper2.class);
 		FileOutputFormat.setOutputPath(job, new Path(args[2]));
 		
-		job.setReducerClass(NamesReducer.class);
+		job.setReducerClass(Reducer.class);
 
 		// Specify the type of output keys and values
 		job.setOutputKeyClass(Text.class);
