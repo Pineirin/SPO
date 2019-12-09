@@ -59,7 +59,11 @@ public class ViolentCrimesUnemployment {
 				val[i] = n.toString();
 				i++;
 			}
-			context.write(key, new Text(val[1] + " " + val[0]));
+						if (val[1].contains("%")){
+				context.write(key, new Text("Violent crimes rate: " + val[0] + "% Unemployment rate" + val[1]));
+			} else {
+context.write(key, new Text("Violent crimes rate: " + val[1] + "% Unemployment rate" + val[0]));
+}
 		}
 	}
 
