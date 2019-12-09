@@ -24,7 +24,7 @@ public class CrimesPoverty {
 			String[] line = value.toString().split(",");
 
 			String currentYear = line[0];
-			if (currentYear.equals("2009") || currentYear.equals("2010") || year.equals("2011") || year.equals("2012") || year.equals("2013") || year.equals("2017")) {
+			if (currentYear.equals("2009") || currentYear.equals("2010") || year.equals("2011") || year.equals("2012") || year.equals("2013")) {
 				year.set(currentYear);
         crimes.set(line[1]);
 			  context.write(year, crimes);
@@ -40,7 +40,7 @@ public class CrimesPoverty {
 			String[] line = value.toString().split(",");
 
 			String currentYear = line[0];
-			if (currentYear.equals("2009") || currentYear.equals("2010") || year.equals("2011") || year.equals("2012") || year.equals("2013") || year.equals("2017")) {
+			if (currentYear.equals("2009") || currentYear.equals("2010") || year.equals("2011") || year.equals("2012") || year.equals("2013")) {
 				year.set(currentYear);
         income.set(line[1]);
 			  context.write(year, income);
