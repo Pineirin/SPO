@@ -89,7 +89,7 @@ public class HateCrimes {
 
 		// Specify the type of output keys and values
 		job.setOutputKeyClass(Text.class);
-		job.setOutputValueClass(IntWritable.class);
+		job.setOutputValueClass(Text.class);
 
 		// Wait for the job to finish before terminating
 		System.exit(job.waitForCompletion(true) ? 0 : 1);
