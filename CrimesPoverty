@@ -28,6 +28,7 @@ public class CrimesPoverty {
 				year.set(currentYear);
         crimes.set(line[1]);
 			  context.write(year, crimes);
+			  }
 		}
 	}
 	
@@ -44,6 +45,7 @@ public class CrimesPoverty {
 				year.set(currentYear);
         income.set(line[1]);
 			  context.write(year, income);
+			  }
 		}
 	}
 
