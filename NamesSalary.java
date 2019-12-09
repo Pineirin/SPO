@@ -10,11 +10,12 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-
+import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 
 public class NamesSalary {
 
-	public static class NamesMapper extends Mapper<Object, Text, Text, IntWritable> {
+	public static class Mapper1 extends Mapper<Object, Text, Text, IntWritable> {
 		
 		private final static IntWritable one = new IntWritable(1);
 		private Text word = new Text();
@@ -22,14 +23,31 @@ public class NamesSalary {
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 			String[] line = value.toString().split(",");
 
-			// The output "state"
-			String et = line[2];
-			word.set(et);
+			// The output "year"
+			String year = line[1];
+			word.set(year);
+			
+			String numberWhite = line[8];
+			if(numberWhite > 0){
+				// Record the output in the Context object
+				context.write(word, one);
+			}
+		}
+	}
+	
+	public static class Mapper2 extends Mapper<Object, Text, Text, IntWritable> {
+		
+		private final static IntWritable one = new IntWritable(1);
+		private Text word = new Text();
+	
+		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
+			String[] line = value.toString().split(",");
 
-			// The output "product"
 			String year = line[0];
-      			String year2 = line[6];
-			if(year.equals(year2)){
+			word.set(year);
+
+			String eth = line[2];
+			if(eth.equals("WHITE NON HISPANIC")){
 				// Record the output in the Context object
 				context.write(word, one);
 			}
@@ -57,11 +75,10 @@ public class NamesSalary {
 		job.setJarByClass(NamesSalary.class);
 
 		// Setup input and output paths
-		FileInputFormat.addInputPath(job, new Path(args[0]));
-		FileOutputFormat.setOutputPath(job, new Path(args[1]));
-
-		// Set the Mapper and Reducer classes
-		job.setMapperClass(NamesMapper.class);
+		MultipleInputs.addInputPath(job,new Path(args[0]), TextInputFormat.class, Mapper1.class);
+		MultipleInputs.addInputPath(job,new Path(args[1]), TextInputFormat.class, Mapper2.class);
+		FileOutputFormat.setOutputPath(job, new Path(args[2]));
+		
 		job.setReducerClass(NamesReducer.class);
 
 		// Specify the type of output keys and values
