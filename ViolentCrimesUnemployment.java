@@ -41,7 +41,7 @@ public class ViolentCrimesUnemployment {
 			String[] line = value.toString().split(",");
 
 			String currentYear = line[0];
-			if ((currentYear.contains("2011") || currentYear.contains("2012") || currentYear.contains("2013")) && !currentYear.contains("Fiscal") {
+			if ((currentYear.contains("2011") || currentYear.contains("2012") || currentYear.contains("2013")) && !currentYear.contains("Fiscal")) {
 				
 				year.set(currentYear.split("-")[1]);
         unemployment.set(line[3]);
