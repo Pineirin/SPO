@@ -15,15 +15,15 @@ public class LiveAnimals {
 
 	public static class Mapper1 extends Mapper<Object, Text, Text, Text> {
 		
-		private Text class = new Text();
+		private Text aclass = new Text();
 		private Text one = new Text();
 	
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 			String[] line = value.toString().split(",");
 
 			// The output "state"
-			String _class = line[5];
-			class.set(_class);
+			String _aclass = line[5];
+			aclass.set(_class);
 
 			// The output "product"
 			String family = line[3];
