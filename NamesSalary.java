@@ -28,7 +28,7 @@ public class NamesSalary {
 
 			// The output "product"
 			String year = line[0];
-      String year2 = line[6];
+      			String year2 = line[6];
 			if(year.equals(year2)){
 				// Record the output in the Context object
 				context.write(word, one);
