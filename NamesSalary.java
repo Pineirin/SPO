@@ -13,7 +13,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 
-public class NamesSalary {
+public class WhiteHateCrimes {
 
 	public static class Mapper1 extends Mapper<Object, Text, Text, IntWritable> {
 		
