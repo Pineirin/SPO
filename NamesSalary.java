@@ -35,7 +35,7 @@ public class HateCrimes {
         		}
 			if(whiteNumber > 0){
 				// Record the output in the Context object
-				nWhiteCrimes.set(whiteNumber);
+				nWhiteCrimes.set(String.valueOf(whiteNumber));
 				context.write(year, nWhiteCrimes);
 			}
 		}
@@ -61,7 +61,7 @@ public class HateCrimes {
 		}
 	}
 
-	public static class Reducer extends Reducer<Text, Text, Text, Text> {
+	public static class HateReducer extends Reducer<Text, Text, Text, Text> {
 		private IntWritable result = new IntWritable();
 		
 		@Override
@@ -87,7 +87,7 @@ public class HateCrimes {
 		MultipleInputs.addInputPath(job,new Path(args[1]), TextInputFormat.class, Mapper2.class);
 		FileOutputFormat.setOutputPath(job, new Path(args[2]));
 		
-		job.setReducerClass(Reducer.class);
+		job.setReducerClass(HateReducer.class);
 
 		// Specify the type of output keys and values
 		job.setOutputKeyClass(Text.class);
