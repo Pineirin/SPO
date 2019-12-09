@@ -61,11 +61,9 @@ public class HateCrimes {
 		}
 	}
 
-	public static class HateReducer extends Reducer<Text, Text, Text, Text> {
-		private IntWritable result = new IntWritable();
-		
+	public static class HateReducer extends Reducer<Text, Text, Text, Text> {		
 		@Override
-		public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+		public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
 			String[] val = new String[2];
 			int i = 0;
 			for (Text n : values) {
