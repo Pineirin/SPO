@@ -15,17 +15,17 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 
 public class HateCrimes {
 
-	public static class Mapper1 extends Mapper<Object, Text, Text, IntWritable> {
+	public static class Mapper1 extends Mapper<Object, Text, Text, Text> {
 		
-		private final static IntWritable one = new IntWritable(1);
-		private Text word = new Text();
+		private Text nWhiteCrimes = new Text();
+		private Text year = new Text();
 	
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 			String[] line = value.toString().split(",");
 
 			// The output "year"
-			String year = line[1];
-			word.set(year);
+			String currentYear = line[1];
+			year.set(currentYear);
 			
 			String white = line[8];
 			int whiteNumber = 0;
@@ -35,41 +35,44 @@ public class HateCrimes {
         		}
 			if(whiteNumber > 0){
 				// Record the output in the Context object
-				context.write(word, one);
+				nWhiteCrimes.set(whiteNumber);
+				context.write(year, nWhiteCrimes);
 			}
 		}
 	}
 	
-	public static class Mapper2 extends Mapper<Object, Text, Text, IntWritable> {
+	public static class Mapper2 extends Mapper<Object, Text, Text, Text> {
 		
-		private final static IntWritable one = new IntWritable(1);
-		private Text word = new Text();
+		private Text newBorns = new Text();
+		private Text year = new Text();
 	
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 			String[] line = value.toString().split(",");
 
-			String year = line[0];
-			word.set(year);
+			String currentYear = line[0];
+			year.set(currentYear);
 
 			String eth = line[2];
 			if(eth.equals("WHITE NON HISPANIC")){
 				// Record the output in the Context object
-				context.write(word, one);
+				newBorns.set(eth);
+				context.write(year, newBorns);
 			}
 		}
 	}
 
-	public static class Reducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+	public static class Reducer extends Reducer<Text, Text, Text, Text> {
 		private IntWritable result = new IntWritable();
 		
 		@Override
 		public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
-			int sum = 0;
-			for (IntWritable val : values) {
-				sum += val.get();
+			String[] val = new String[2];
+			int i = 0;
+			for (Text n : values) {
+				val[i] = n.toString();
+				i++;
 			}
-			result.set(sum);
-			context.write(key, result);
+			context.write(key, new Text(val[1] + " " + val[0]));
 		}
 	}
 
