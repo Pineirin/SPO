@@ -79,17 +79,17 @@ public class CrimesUnemployment {
 			String VC = "";
 			String NVC = "";
 			String UR = "";
-			for (int i = 0; i<val.length; i++){
-				if (val[i].contains("Violent crimes")){
-					if (val[i].contains("Non")){
-						NVC = val[i];
+			for (int j = 0; j<val.length; j++){
+				if (val[j].contains("Violent crimes")){
+					if (val[j].contains("Non")){
+						NVC = val[j];
 					}
 					else {
-						VC = val[i];
+						VC = val[j];
 					}
 				}
 				else {
-					UR = val[i];
+					UR = val[j];
 				}
 			}
 			context.write(key, new Text("Unemployment rate: " + UR + " " + NVC + " " + VC));
