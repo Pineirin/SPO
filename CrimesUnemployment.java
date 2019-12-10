@@ -81,12 +81,9 @@ public class CrimesUnemployment {
 			String UR = "";
 			for (int j = 0; j<val.length; j++){
 				if (val[j].contains("Violent crimes")){
-					if (val[j].contains("Non")){
-						NVC = val[j];
-					}
-					else {
-						VC = val[j];
-					}
+					VC = val[j];
+				} else if (val[j].contains("Non violent crimes")){
+					NVC = val[j];
 				}
 				else {
 					UR = val[j];
