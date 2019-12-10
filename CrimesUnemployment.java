@@ -85,7 +85,7 @@ public class CrimesUnemployment {
 						NVC = val[i];
 					}
 					else {
-						VC = val[i]
+						VC = val[i];
 					}
 				}
 				else {
