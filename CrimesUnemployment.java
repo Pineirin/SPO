@@ -13,7 +13,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 
-public class ViolentCrimesUnemployment {
+public class CrimesUnemployment {
 
 	public static class Mapper1 extends Mapper<Object, Text, Text, Text> {
 		
@@ -100,7 +100,7 @@ public class ViolentCrimesUnemployment {
 		// Create the job specification object
 		Configuration conf = new Configuration();
 		Job job = Job.getInstance(conf, "Crimes Unemployment");
-		job.setJarByClass(ViolentCrimesUnemployment.class);
+		job.setJarByClass(CrimesUnemployment.class);
 
 		// Setup input and output paths
 		MultipleInputs.addInputPath(job,new Path(args[0]), TextInputFormat.class, Mapper1.class);
