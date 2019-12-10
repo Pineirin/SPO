@@ -42,7 +42,7 @@ public class CrimesUnemployment {
 
 			String currentYear = line[0];
 			if (currentYear.equals("2011") || currentYear.equals("2012") || currentYear.equals("2013")) {
-				year.set("currentYear);
+				year.set(currentYear);
         crimes.set("Non violent crimes: " + line[1] + "%");
 			  context.write(year, crimes);
 			  }
